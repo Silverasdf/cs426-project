@@ -1,3 +1,10 @@
+# modules.py
+
+# This is a big collection of functions that are used in the data collection process. Most of these are used in multiple programs, so we decided to put them in one place and
+# import them when needed.
+
+# We have detailed docstrings for each function, so you can see what they do and how to use them. Most of these are just meant to be helper functions for cleaner code.
+
 import pandas as pd
 from datetime import date, timedelta
 import nba_api.stats.endpoints as endpoints
@@ -58,6 +65,17 @@ def get_season(game_id):
     return f"{start_year}-{end_year_short:02d}"
 
 def fill_teams_df(game_id, team_stats, teams_df):
+    """
+    Fills the teams_df DataFrame with team data from the game_id and team_stats DataFrame.
+    
+    Parameters:
+    game_id (str): The unique identifier for the game.
+    team_stats (DataFrame): DataFrame containing team statistics.
+    teams_df (DataFrame): DataFrame to be filled with team data.
+
+    Returns:
+    DataFrame: Updated teams_df with new team data.
+    """
 
     season_year = get_season(game_id)
     team_ids = team_stats['TEAM_ID'].unique()
@@ -96,6 +114,16 @@ def fill_teams_df(game_id, team_stats, teams_df):
     return teams_df
 
 def fill_players_df(player_stats, players_df):
+    """
+    Fills the players_df DataFrame with player data from the player_stats DataFrame.
+
+    Parameters:
+    player_stats (DataFrame): DataFrame containing player statistics.
+    players_df (DataFrame): DataFrame to be filled with player data.
+    
+    Returns:
+    DataFrame: Updated players_df with new player data.
+    """
 
     player_ids = player_stats['PLAYER_ID'].unique()
 
@@ -125,6 +153,18 @@ def fill_players_df(player_stats, players_df):
     return players_df
 
 def fill_games_df(game_id, game_date, games_df):
+    """
+    Fills the games_df DataFrame with game data from the game_id and game_date.
+
+    Parameters:
+    game_id (str): The unique identifier for the game.
+    game_date (str): The date of the game in 'YYYY-MM-DD' format.
+    games_df (DataFrame): DataFrame to be filled with game data.
+
+    Returns:
+    DataFrame: Updated games_df with new game data.
+    
+    """
     season_year = get_season(game_id)
     home_team_id, away_team_id = get_home_away_team(game_id)
 
@@ -145,6 +185,17 @@ def fill_games_df(game_id, game_date, games_df):
     return games_df
 
 def get_player_game_stats(game_id, player_stats, player_game_stats_df):
+    """
+    Fills the player_game_stats_df DataFrame with player game statistics from the player_stats DataFrame.
+
+    Parameters:
+    game_id (str): The unique identifier for the game.
+    player_stats (DataFrame): DataFrame containing player statistics.
+    player_game_stats_df (DataFrame): DataFrame to be filled with player game statistics.
+
+    Returns:
+    DataFrame: Updated player_game_stats_df with new player game statistics.
+    """
     player_ids = player_stats['PLAYER_ID'].unique()
 
     columns_to_keep = [
@@ -182,8 +233,18 @@ def get_player_game_stats(game_id, player_stats, player_game_stats_df):
     return player_game_stats_df
 
 
-# Function to simulate an API request with retries and exponential backoff
 def fetch_with_retry(func, *args, **kwargs):
+    """
+    Fetch data with retries and exponential backoff.
+
+    Parameters:
+    func (callable): The function to call for fetching data.
+    *args: Positional arguments to pass to the function.
+    **kwargs: Keyword arguments to pass to the function.
+
+    Returns:
+    Whatever the function returns, or None if all retries fail.
+    """
     retries = 20  # Number of retries
     delay = 1  # Initial delay time in seconds
     for attempt in range(retries):
@@ -201,9 +262,15 @@ def fetch_with_retry(func, *args, **kwargs):
                 print(f"Failed after {retries} attempts: {e}")
                 return None
             
-def check_dfs(dfs: list):
+def check_dfs(dfs):
     """
     Check if the dataframes are empty or have missing values. Does not check for duplicates or mismatched ids
+
+    Parameters:
+    dfs (list): List of DataFrames to check.
+
+    Returns:
+    bool: True if all DataFrames are non-empty and have no missing values, False otherwise.
     """
     for df in dfs:
         if df.isnull().values.any():
@@ -214,7 +281,16 @@ def check_dfs(dfs: list):
     return True
 
 def json_fix(df):
-    # This function will clean the 'player_game_stats' column
+    """
+    Cleans the 'player_game_stats' column in the DataFrame by replacing NaN values with None.
+    
+    Parameters:
+    df (DataFrame): The DataFrame containing the 'player_game_stats' column.
+
+    Returns:
+    DataFrame: The cleaned DataFrame with the 'player_game_stats' column.
+    
+    """
     
     # Function to replace NaN with None in nested data structures
     def replace_nan_with_none(data):
@@ -252,9 +328,18 @@ def json_fix(df):
 
     return df
 
-
-import sys
 def fill_games_df_v1(boxscore, games_df):
+    """
+    Fills today's games to the games_df DataFrame
+
+    Parameters:
+    boxscore (BoxScoreSummaryV1): The BoxScoreSummaryV1 object containing game data.
+    games_df (DataFrame): DataFrame to be filled with game data.
+
+    Returns:
+    DataFrame: Updated games_df with new game data.
+
+    """
 
     games = boxscore.get_dict()
 
@@ -296,6 +381,16 @@ def fill_games_df_v1(boxscore, games_df):
     return games_df
 
 def fill_teams_df_v1(boxscore, teams_df):
+    """
+    Fills the teams_df DataFrame with today's team data from the boxscore.
+
+    Parameters:
+    boxscore (BoxScoreSummaryV1): The BoxScoreSummaryV1 object containing team data.
+    teams_df (DataFrame): DataFrame to be filled with team data.
+
+    Returns:
+    DataFrame: Updated teams_df with new team data.
+    """
 
     games = boxscore.get_dict()
 
@@ -330,6 +425,16 @@ def fill_teams_df_v1(boxscore, teams_df):
     return teams_df
 
 def fill_games_df_future(games, games_df):
+    """
+    Fills the games_df DataFrame with future game data from the games DataFrame.
+
+    Parameters:
+    games (DataFrame): DataFrame containing future game data.
+    games_df (DataFrame): DataFrame to be filled with game data.
+
+    Returns:
+    DataFrame: Updated games_df with new game data.
+    """
     
     for _, game in games.iterrows()   : 
         game_id = game['GAME_ID']
@@ -365,6 +470,16 @@ def fill_games_df_future(games, games_df):
 
 # Since games are already in the database, we may need to update the game_time column like this
 def insert_date_in_db(games_df, engine):
+    """
+    Inserts the game_time into the database for each game in the games_df DataFrame.
+
+    Parameters:
+    games_df (DataFrame): DataFrame containing game data.
+    engine (Engine): SQLAlchemy engine for database connection.
+
+    Returns:
+    None
+    """
 
     for _, row in games_df.iterrows():
 

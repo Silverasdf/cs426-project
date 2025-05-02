@@ -1,3 +1,16 @@
+# Add_in_background.py
+# This script is used to collect data from the NBA API and save it to a PostgreSQL database.
+
+# This script IS NOT MEANT TO BE RUN, unless you have access to the database. csv-populaton.ipynb is the script that you can run and it will save to a csv, so no database needed.
+
+# WARNING: This script is very hard to read, due to the many inconsistencies in the API and the issues we've had with database consistency.
+# Therefore, I will sum it up here:
+
+# First, we grab the password for the database from the .env file. We have functionality for using windows
+# Next, we go through future games and call the API to get the games for that day. We only can save the games.
+# Then, we go through the current day and get the games and teams for that day. We save those to the database.
+# Finally, we go through the past 5 days and get the games for that day. We get the boxscore for each game and save the data (stats) with everything else to the database.
+
 import pandas as pd
 from datetime import date, timedelta
 import nba_api.stats.endpoints as endpoints
@@ -19,14 +32,12 @@ if len(sys.argv) > 1:
 else:
     local = False
 
-assert os.path.exists(".env"), "Please create a .env file in the Oracle-Arena directory."
+assert os.path.exists(".env"), "Please create a .env file in the main directory with the password for our database."
 
-if local:
-    with open(".env", "r") as f:
-        password = f.readlines()[3].strip().split("=")[1].strip()
-else:
-    password = os.getenv('PASSWORD', '')
+with open(".env", "r") as f:
+    password = f.readlines()[3].strip().split("=")[1].strip()
 
+#Only used in this file for the database specifically!
 def safe_row_insert(df, table_name, engine):
     with warnings.catch_warnings():
         warnings.filterwarnings('ignore', category=sa_exc.SAWarning)

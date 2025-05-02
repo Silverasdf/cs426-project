@@ -9,7 +9,7 @@ This assignment focuses on using previous NBA statistics to predict the over/und
 
 The Poster is provided as poster.pdf
 The Presentation is provided as presentation.pdf
-The Abstract is provided as paper.pdf
+The Abstract is provided as paper.pdf, and it will also be submitted to Canvas.
 
 ## Installation
 
@@ -23,7 +23,7 @@ conda activate oracle
 pip install -r requirements.txt
 ```
 
-Or you can use regular Python3.10 and pip to install the required packages:
+Or you can use regular Python3.11 and pip to install the required packages:
 
 ```bash
 pip install -r requirements.txt
@@ -33,7 +33,11 @@ From here, you can run the Jupyter notebooks by opening the files in Jupyter Not
 
 ## Usage
 
-As mentioned above, you may just run the code cells in this notebook. Everything is included in the repo.
+### Data collection
+
+Feel free to run the cells in csv_population.ipynb. This takes a long time to run, so we have provided the csv files in the Data folder. The others in data_collection/ are not necessary to run, as they are just for creating the Data folder contents.
+
+### Machine Learning
 
 ## Contact Information
 
@@ -41,4 +45,4 @@ This project was written by Ryan Peruski and Triton Eden, students at the Univer
 
 ## Acknowledgments
 
-Thank you to the University of Tennessee department of EECS for providing the opportunity to learn and grow in the field of computer science, as well as my professor of this current class, Dr. Jack Marquez, and my TAs.
+Thank you to the University of Tennessee department of EECS for providing the opportunity to learn and grow in the field of computer science, as well as our professor of this current class, Dr. Jack Marquez, and our TAs.
