@@ -1,4 +1,4 @@
-# Oracle Arena: Using Previous NBA Statistics for Accurate Over/Under Predictions
+# Oracle Arena: Predicting NBA Games
 
 COSC 426 / 526 - Final Project
 Due: May 2nd, 2025
@@ -9,7 +9,7 @@ This assignment focuses on using previous NBA statistics to predict the over/und
 
 The Poster is provided as poster.pdf
 The Presentation is provided as presentation.pdf
-The Abstract is provided as paper.pdf, and it will also be submitted to Canvas.
+The Abstract will be provided on May 9th as paper.pdf, and it will also be submitted to Canvas.
 
 ## Installation
 
