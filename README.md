@@ -7,9 +7,9 @@ This assignment focuses on using previous NBA statistics to predict the over/und
 
 ## Links
 
-The Poster is provided as poster.pdf
-The Presentation is provided as presentation.pdf
-The Abstract will be provided on May 9th as paper.pdf, and it will also be submitted to Canvas.
+- The Poster is provided as poster.pdf
+- The Presentation is provided as presentation.pdf
+- The Abstract will be provided on May 9th as paper.pdf, and it will also be submitted to Canvas.
 
 ## Installation
 
