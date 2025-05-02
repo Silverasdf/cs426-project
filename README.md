@@ -38,7 +38,9 @@ From here, you can run the Jupyter notebooks by opening the files in Jupyter Not
 Feel free to run the cells in csv_population.ipynb. This takes a long time to run, so we have provided the csv files in the Data folder. The others in data_collection/ are not necessary to run, as they are just for creating the Data folder contents.
 
 ### Machine Learning
-Model results are all in the data_extraction folder. 
+
+Model results are all in the data_extraction folder.
+
 - Regular Season Win Predictions: winpred_reg.ipynb
 - Playoff Win Predictions: winpred_playoff.ipynb
 - Regular Season Total Score Predictions: pointspred_reg.ipynb
