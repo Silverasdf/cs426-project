@@ -3,7 +3,7 @@
 COSC 426 / 526 - Final Project
 Due: May 2nd, 2025
 
-This assignment focuses on using previous NBA statistics to predict the over/under for a given game. The goal is to create a model that can accurately predict the over/under for a given game based on previous statistics. Furthermore, we will also explore the use of regressors to predict the total points scored in a game.
+This assignment focuses on using previous NBA statistics to predict the outcomes for a given game. We used the [NBA API](https://github.com/swar/nba_api) to collect data from the 2018 to recent seasons. We use a database that is inaccessible to the public, so we have provided CSV files with the most up-to-date data (May 2, 2025). We then use classical ML and Deep Learning techniques to predict the outcomes of the nba games.
 
 ## Links
 
